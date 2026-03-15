@@ -2,6 +2,7 @@ from src.calculator import get_respiration_score
 from src.calculator import get_spo2_score
 from src.calculator import get_temperature_score
 from src.calculator import calculate_medi_score
+from src.calculator import get_cbg_score
 
 # testing respiration score
 def test_respiration_normal():
@@ -38,3 +39,11 @@ def test_patient_3():
     # Final Score should be 8
     patient = {"air_or_oxygen": 2, "consciousness": 1, "respiration_rate": 23, "spo2": 88, "temperature": 38.5}
     assert calculate_medi_score(patient) == 8
+
+# bonus task testing
+def test_cbg_fasting_normal():
+    assert get_cbg_score(4.5, True) == 0
+
+def test_cbg_after_eating_high():
+    # 9.0 or above after eating is Score 3
+    assert get_cbg_score(9.5, False) == 3

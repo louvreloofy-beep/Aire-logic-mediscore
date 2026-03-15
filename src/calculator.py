@@ -61,12 +61,33 @@ def get_consciousness_score(status):
     else:
         return 3
     
+# bonus task
+def get_cbg_score(value, is_fasting):
+    v = float(value)
+    if is_fasting:
+        if v <= 3.4 or v >= 6.0:
+            return 3
+        elif 3.5 <= v <= 3.9 or 5.5 <= v <= 5.9:
+            return 2
+        else:
+            return 0
+    else:
+        if v <= 4.5 or v >= 9.0:
+            return 3
+        elif 4.6 <= v <= 5.8 or 7.9 <= v <= 8.9:
+            return 2
+        else:
+            return 0
+    
 def calculate_medi_score(obs):
     components = [
         obs['air_or_oxygen'],
         get_consciousness_score(obs['consciousness']),
         get_respiration_score(obs['respiration_rate']),
         get_spo2_score(obs['spo2'], obs['air_or_oxygen']),
-        get_temperature_score(obs['temperature'])
+        get_temperature_score(obs['temperature']),
+        # bonus task metric
+        get_cbg_score(obs.get('cbg', 5.0), obs.get('is_fasting', True))
     ]
     return sum(components)
+
