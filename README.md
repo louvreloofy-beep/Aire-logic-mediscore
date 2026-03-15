@@ -7,6 +7,7 @@ A Python-based implementation of the NEWS2 system, designed to calculate a patie
 * **test-driven development**: built using `pytest` to ensure 100% accuracy.
 * **complex spo2 logic**: handles the conditional scoring for patients on both air and supplemental oxygen.
 * **data validation**: includes rounding for temperature as per requirements.
+* **bonus task completed**: implemented CBG scoring logic with dual-range support (fasting and after eating).
 
 ## installation and setup:
 1. ensure you have Python 3.14+ installed.
