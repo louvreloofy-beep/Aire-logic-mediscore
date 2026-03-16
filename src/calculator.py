@@ -79,7 +79,7 @@ def get_cbg_score(value, is_fasting):
         else:
             return 0
     
-def calculate_medi_score(obs):
+def calculate_medi_score(obs, previous_total=None):
     components = [
         obs['air_or_oxygen'],
         get_consciousness_score(obs['consciousness']),
@@ -89,5 +89,14 @@ def calculate_medi_score(obs):
         # bonus task metric
         get_cbg_score(obs.get('cbg', 5.0), obs.get('is_fasting', True))
     ]
-    return sum(components)
+
+    current_total = sum(components)
+    
+    # for trend alerting bonus
+    is_rising_risk = False
+    if previous_total is not None:
+        if (current_total - previous_total) > 2:
+            is_rising_risk = True
+
+    return current_total, is_rising_risk
 
